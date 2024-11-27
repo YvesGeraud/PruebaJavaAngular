@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 import { ProductosService } from '../../services/productos.service';
 
 @Component({
@@ -10,6 +10,19 @@ import { ProductosService } from '../../services/productos.service';
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.scss'],
 })
-export class ProductosComponent {
-  // Aquí ya puedes usar el servicio ProductosService como lo tienes configurado
+export class ProductosComponent implements OnInit {
+  productos: any[] = [];
+
+  constructor(private productosService: ProductosService) { }
+
+  ngOnInit(): void {
+    this.productosService.getProductos().subscribe(
+      (data) => {
+        this.productos = data;
+      },
+      (error) => {
+        console.error('Error al cargar productos:', error);
+      }
+    );
+  }
 }

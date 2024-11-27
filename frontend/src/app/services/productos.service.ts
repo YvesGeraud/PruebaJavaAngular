@@ -10,7 +10,7 @@ export class ProductosService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para obtener la lista de productos
+  // Método para obtener los productos
   getProductos(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
